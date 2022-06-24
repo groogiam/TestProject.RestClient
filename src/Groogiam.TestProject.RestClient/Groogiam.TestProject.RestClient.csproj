@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>10</LangVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>A .NET REST API client for https://testproject.io/.</Description>
+		<Copyright>Copyright © Greg Horvath, 2022</Copyright>
+		<PackageProjectUrl>https://github.com/groogiam/TestProject.RestClient</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/groogiam/TestProject.RestClient</RepositoryUrl>
+		<Company>Groogiam</Company>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="NSwag.MSBuild" Version="13.16.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+
+	<!--This target regenerates the open api clients.
+  Automatic execution has been disabled. To enable add the attribute: BeforeTargets="Build"
+  Use "dotnet msbuild -target:NSwag" to execute manually.-->
+	<Target Name="NSwag">
+		<!--Generate C# Clients-->
+		<Exec Command="$(NSwagExe_Net60) run TestProject.nswag" />
+	</Target>
+</Project>
